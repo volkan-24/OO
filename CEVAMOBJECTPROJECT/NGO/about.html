@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px; /* Genişliği artır */
+            margin: 50px auto; /* Kutucuğu dikeyde ve yatayda ortala */
+            padding: 20px 100px; /* Sağ ve sol padding ekle */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative; /* İç içe geçen div'ler için pozisyonu belirt */
+        }
+
+        .border-left,
+        .border-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%; /* Genişliği 100% olarak ayarla */
+            background-color: #000;
+            z-index: -1; /* Arka planda kalması için z-index'i ayarla */
+        }
+
+        .border-left {
+            left: 0;
+        }
+
+        .border-right {
+            right: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #223850;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ff0015;
+        }
+
+        ul {
+            list-style: none; /* Liste işaretlerini kaldır */
+            padding-left: 0; /* Liste içi boşluğu kaldır */
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .quote {
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact {
+            background-color: #000; /* Arka plan rengi siyah */
+            color: #fff; /* Yazı rengi beyaz */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px; /* Contact bölümünü yukarı doğru kaydır */
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .contact p {
+            text-align: center;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #232323;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-btn" onclick="window.location.href='index.html'">Home</button>
+
+    <div class="container">
+        <div class="border-left"></div> <!-- Sol çizgi -->
+        <div class="border-right"></div> <!-- Sağ çizgi -->
+        <h1>About Us</h1>
+        <p>Welcome to NGO-AOMSYS, a non-governmental organization dedicated to making a positive impact in our community.</p>
+        <p>At NGO-AOMSYS, we believe in the power of collective action to create meaningful change. Our team of dedicated volunteers works tirelessly to address pressing social issues and provide support to those in need.</p>
+        <p>Our mission is to <span class="highlight">empower individuals</span> and <span class="highlight">foster community development</span> through various initiatives such as:</p>
+        <ul>
+            <li>Providing educational resources to underprivileged children</li>
+            <li>Offering support services to vulnerable populations</li>
+            <li>Organizing community outreach programs</li>
+            <li>Raising awareness about important social issues</li>
+        </ul>
+        <p>We believe that by working together, we can build a brighter future for everyone.</p>
+        <p class="quote">"Alone we can do so little; together we can do so much." - Helen Keller</p>
+        <p>Thank you for your interest in our organization.</p>
+        </div>
+        <!-- Contact Us Section -->
+        <div class="contact">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or inquiries, feel free to contact us at info@ngo-aomsys.org</p>
+        </div>
+        <!-- End Contact Us Section -->
+        

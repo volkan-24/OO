@@ -1,0 +1,28 @@
+CREATE DATABASE ngo;
+
+USE ngo;
+
+CREATE TABLE donor_registration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    donation_type VARCHAR(50) NOT NULL,
+    amount VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE volunteer_registration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    profession VARCHAR(255) NOT NULL,
+    region VARCHAR(255) NOT NULL,
+    availability VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE indigent_registration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    monthly_income VARCHAR(255) NOT NULL,
+    household_size VARCHAR(255) NOT NULL,
+    support_type VARCHAR(50) NOT NULL
+);

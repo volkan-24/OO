@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #504e4e;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .border-left,
+        .border-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #000;
+            z-index: -1;
+        }
+
+        .border-left {
+            left: 0;
+        }
+
+        .border-right {
+            right: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #000000;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .stats {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .stats p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="border-left"></div>
+        <div class="border-right"></div>
+        <h1>Admin Panel</h1>
+
+        <!-- User Management -->
+        <div class="user-management">
+            <h2>User Management</h2>
+            <form id="userForm">
+                <input type="text" id="username" placeholder="Username">
+                <input type="text" id="donation" placeholder="Donation">
+                <input type="text" id="aid" placeholder="Aid">
+                <button type="submit" class="button">Add User</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Donation</th>
+                        <th>Aid</th>
+                    </tr>
+                </thead>
+                <tbody id="userList">
+                    <!-- User List -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <h2>Dashboard</h2>
+            <div id="statistics" class="stats">
+                <!-- Statistics -->
+            </div>
+        </div>
+
+        <!-- Total Statistics -->
+        <div id="totalStatistics" class="stats">
+            <!-- Total Statistics -->
+        </div>
+    </div>
+    <button id="logoutButton" class="button" style="position: fixed; top: 20px; right: 20px;">Logout</button>
+    <!-- JavaScript -->
+    <script>
+        // Add user when form submitted
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value.trim();
+            var donation = document.getElementById('donation').value.trim();
+            var aid = document.getElementById('aid').value.trim();
+
+            // Boş değerlerin kontrolü
+            if (username && donation && aid) {
+                // Sayı olmayan girişlerin kontrolü
+                if (!isNaN(donation) && !isNaN(aid)) {
+                    // Tabloya kullanıcı ekleme
+                    var newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${username}</td>
+                        <td>${donation}</td>
+                        <td>${aid}</td>
+                    `;
+                    document.getElementById('userList').appendChild(newRow);
+
+                    // Alanları temizleme
+                    document.getElementById('username').value = '';
+                    document.getElementById('donation').value = '';
+                    document.getElementById('aid').value = '';
+
+                    // İstatistikleri güncelleme
+                    updateStatistics();
+                    updateTotalStatistics();
+                } else {
+                    alert('Please enter valid numerical values for Donation and Aid.');
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Update statistics
+        function updateStatistics() {
+            var userDonations = document.querySelectorAll('#userList td:nth-child(2)');
+            var userAid = document.querySelectorAll('#userList td:nth-child(3)');
+
+            var totalDonations = Array.from(userDonations).reduce((total, user) => {
+                return total + parseInt(user.textContent);
+            }, 0);
+
+            var totalAid = Array.from(userAid).reduce((total, user) => {
+                return total + parseInt(user.textContent);
+            }, 0);
+
+            var totalUsers = document.getElementById('userList').getElementsByTagName('tr').length - 1; // Başlık satırını çıkarmak için -1
+
+            var statsHTML = `
+                <p>Total Users: ${totalUsers}</p>
+                <p>Total Donations: ${totalDonations}</p>
+                <p>Total Aid: ${totalAid}</p>
+            `;
+
+            document.getElementById('statistics').innerHTML = statsHTML;
+            updateTotalStatistics(totalDonations, totalAid, totalUsers);
+        }
+
+        
+
+            
+
+        // Call updateTotalStatistics on page load
+        window.addEventListener('load', function() {
+            updateTotalStatistics(0, 0, 0);
+        });
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirect to index.html
+        });
+    </script>
+</body>
+</html>
